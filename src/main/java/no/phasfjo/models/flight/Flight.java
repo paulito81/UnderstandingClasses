@@ -43,6 +43,9 @@ public class Flight {
     public Flight() {
     }
 
+    public Flight(String flightName){
+        this.flightName = flightName;
+    }
 
     public Flight(int amountPassengers, int passengerSeats, String flightName, int flightNumber) {
         this.amountPassengers = amountPassengers;

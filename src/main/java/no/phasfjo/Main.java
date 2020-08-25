@@ -3,20 +3,25 @@ package no.phasfjo;
 import no.phasfjo.controller.BagController;
 import no.phasfjo.controller.Calculations;
 import no.phasfjo.controller.FlightController;
-import no.phasfjo.models.*;
+import no.phasfjo.models.CrewMember;
+import no.phasfjo.models.FlightCrewJob;
+import no.phasfjo.models.flight.CargoFlight;
 import no.phasfjo.models.flight.Flight;
 import no.phasfjo.models.flight.Flight2;
 import no.phasfjo.models.flight.Flight3;
 import no.phasfjo.models.math.*;
-import org.jetbrains.annotations.NotNull;
+import no.phasfjo.models.passenger.Passenger;
 
 import static no.phasfjo.controller.FlightController.*;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        performAwesomeCalculations();
+        executeInteractively();
     }
 
     private static void runAll(){
@@ -28,6 +33,11 @@ public class Main {
         cargoFlight();
         flightsF1();
         flightsF3();
+        performAwesomeCalculations();
+        performEvenMoreAwesomeCalculations();
+        performEnums();
+        crewMembers();
+        executeInteractively();
     }
 
     private static void flights(){
@@ -131,6 +141,20 @@ public class Main {
         System.out.println("Calculation result: " + calculation.getResult());
     }
 
+    private static void performEvenMoreAwesomeCalculations(){
+        CalculateBase[] calculations = {
+                new Divider(100.0d, 50.0d),
+                new Adder(25.0d, 92.0d ),
+                new Subtraction(225.0d, 17.0d ),
+                new Multiplier(11.0d, 3.0d),
+        };
+        System.out.println("******************\nArray Calculations:\n******************");
+        for(CalculateBase calculation : calculations){
+            calculation.calculate();
+            System.out.format("Result: " + calculation.getClass().getName().replace("no.phasfjo.models.math.", "") + "\t = " + calculation.getResult() + "]");
+        }
+    }
+
     private static void performAwesomeCalculations(){
         Divider divider = new Divider();
         doCalculation(divider, 100.0d, 50.0d);
@@ -141,8 +165,64 @@ public class Main {
         Multiplier multiplier = new Multiplier();
         doCalculation(multiplier,11.0d, 3.0d );
 
-        Subtractor subtractor = new Subtractor();
+        Subtraction subtractor = new Subtraction();
         doCalculation(subtractor, 225.0d, 17.0d);
+    }
+
+    private static void performEnums(){
+        FlightCrewJob pilotJob = FlightCrewJob.PILOT;
+        FlightCrewJob flightAttendantJob = FlightCrewJob.FLIGHT_ATTENDANT;
+        displayJobResponsibility(pilotJob);
+        displayJobResponsibility(flightAttendantJob);
+    }
+
+    private static void displayJobResponsibility(FlightCrewJob job){
+        switch (job) {
+            case FLIGHT_ATTENDANT -> System.out.println("The Flight attendant: Assures passenger safety");
+            case COPILOT -> System.out.println("The Co-Pilot: Assists in flying the plane");
+            case PILOT -> System.out.println("The Pilot: Flies the plane");
+            default -> System.err.println("Error not a valid value");
+        }
+    }
+    
+    private static void crewMembers(){
+        CrewMember geetha = new CrewMember(FlightCrewJob.PILOT, "Geetha");
+        CrewMember bob = new CrewMember(FlightCrewJob.FLIGHT_ATTENDANT, "Bob");
+        whoIsInCharge(geetha, bob);
+    }
+
+    private static void whoIsInCharge(CrewMember member1, CrewMember member2) {
+        CrewMember theBoss = member1.getJob().compareTo(member2.getJob()) > 0 ? member1 : member2;
+        System.out.println(theBoss.getJob().getTitle() + " " + theBoss.getName() + " is boss");
+    }
+
+    static void executeInteractively(){
+        System.out.println("Skriv inn et matte operasjon og to tall.\t(eks. add 10 20)");
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine();
+        String[] parts = userInput.split(" "); // Use this to split up text input.
+        performOperation(parts);
+    }
+
+    private static boolean checkValidation(String[] parts){
+        return parts.length > 2 && !parts[0].equals("") && !parts[1].equals("") && !parts[2].equals("");
+    }
+
+    private static void performOperation(String[] parts) {
+        if( checkValidation(parts) ){
+            MathOperation operation = MathOperation.valueOf(parts[0].toUpperCase());
+            double leftVal = Double.parseDouble(parts[1]);
+            double rightVal = Double.parseDouble(parts[2]);
+            Calculations calc = new Calculations(operation, leftVal, rightVal);
+            CalculateBase calculateBase = calc.createCalculation(operation, leftVal, rightVal);
+            calculateBase.calculate();
+            System.out.println("Operation performed: " + operation);
+            System.out.println(calculateBase.getResult());
+        }
+        else {
+            System.err.print("Error, you did not type a correct value. You typed: ");
+            Arrays.stream(parts).forEach(System.err::println);
+        }
     }
 
 }

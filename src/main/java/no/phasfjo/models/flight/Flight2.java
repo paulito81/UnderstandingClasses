@@ -1,11 +1,18 @@
 package no.phasfjo.models.flight;
+import no.phasfjo.models.passenger.Passenger;
 
-import no.phasfjo.models.Passenger;
-
-public class Flight2 {
+public class Flight2 extends Flight{
 
     int passengers, seats, totalCheckedBags;
+    String flightNumber;
 
+    public Flight2(String flightNumber){
+        super(flightNumber);
+    }
+
+    public Flight2(){
+
+    }
     public int getSeats() {
         return 150;
     }

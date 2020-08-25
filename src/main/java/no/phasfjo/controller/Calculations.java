@@ -1,5 +1,5 @@
 package no.phasfjo.controller;
-import no.phasfjo.models.math.MathEquation;
+import no.phasfjo.models.math.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +8,10 @@ public class Calculations {
 
     public Calculations(){
         newCalculations();
+    }
+
+    public Calculations(MathOperation operation, double leftVal, double rightVal){
+        createCalculation(operation, leftVal, rightVal);
     }
 
     private void newCalculations() {
@@ -43,5 +47,17 @@ public class Calculations {
         equationOverload.execute(leftInt, rightInt);
         System.out.println("Overloaded result with integer: " + equationOverload.getResult());
 
+    }
+
+    public CalculateBase createCalculation(MathOperation operation, double leftVal, double rightVal){
+        CalculateBase calculation = null;
+        switch (operation) {
+            case ADD -> calculation = new Adder(leftVal, rightVal);
+            case DIVIDE -> calculation = new Divider(leftVal, rightVal);
+            case SUBTRACT -> calculation = new Subtraction(leftVal, rightVal);
+            case MULTIPLY -> calculation = new Multiplier(leftVal, rightVal);
+            default -> System.err.println("Error not a valid value");
+        }
+        return calculation;
     }
 }

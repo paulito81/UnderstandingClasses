@@ -1,4 +1,4 @@
-package no.phasfjo.models;
+package no.phasfjo.models.passenger;
 
 public class Passenger {
 

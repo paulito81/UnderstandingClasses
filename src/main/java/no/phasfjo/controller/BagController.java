@@ -1,6 +1,6 @@
 package no.phasfjo.controller;
 
-import no.phasfjo.models.Passenger;
+import no.phasfjo.models.passenger.Passenger;
 
 public class BagController {
 

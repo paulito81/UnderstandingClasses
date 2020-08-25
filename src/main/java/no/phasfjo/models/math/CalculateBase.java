@@ -1,6 +1,6 @@
 package no.phasfjo.models.math;
 
-public class CalculateBase {
+public abstract class CalculateBase {
     private double leftValue;
     private double rightValue;
     private double result;
@@ -29,6 +29,12 @@ public class CalculateBase {
         this.result = result;
     }
 
-    public void calculate() {
+    // we want users to create new implementation
+    public abstract void calculate();
+
+    public CalculateBase(double leftValue, double rightValue){
+        this.leftValue = leftValue;
+        this.rightValue = rightValue;
     }
+    public CalculateBase(){};
 }
