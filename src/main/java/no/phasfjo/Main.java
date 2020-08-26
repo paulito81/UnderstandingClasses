@@ -22,9 +22,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-       dynamicInteractivity();
+        flyEvenMore();
     }
-
 
     private static void runAll() {
         flights();
@@ -43,6 +42,8 @@ public class Main {
         passengerDemo();
         flySomeMore();
         dynamicInteractivity();
+        flyFastFlyHard();
+        flyEvenMore();
     }
 
     private static void flights() {
@@ -236,7 +237,6 @@ public class Main {
     }
 
     private static void passengerDemo() {
-
         Passenger3[] passengers = {
                 new Passenger3("Luisa", 1, 180),
                 new Passenger3("Jack", 1, 90),
@@ -278,6 +278,26 @@ public class Main {
         else{
             System.err.println("No value!");
         }
+    }
 
+    private static void flyFastFlyHard(){
+        Passenger3 steve = new Passenger3("Steve", 3, 180);
+        Passenger3.RewardProgram platinum = new Passenger3.RewardProgram();
+        platinum.setMemberLevel(3);
+        if(steve.getRewardProgram().getMemberLevel() == platinum.getMemberLevel())
+            System.out.println("Steve is Platinum customer");
+    }
+
+    private static void flyEvenMore(){
+        Flight3 f175 = new Flight3(175);
+        Passenger3[] passengersList = {
+        new Passenger3("Luisa", 1, 190),
+        new Passenger3("Jack", 1, 90),
+        new Passenger3("Ashanti", 3, 730),
+        new Passenger3("Harish", 2, 150)
+        };
+        f175.add1Passenger(passengersList);
+        for(Passenger3 p : f175.getOrderedPassengers())
+            System.out.println(p.getName());
     }
 }
