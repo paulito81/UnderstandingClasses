@@ -1,6 +1,6 @@
 package no.phasfjo.models.math;
 
-public class Multiplier extends CalculateBase {
+public class Multiplier extends CalculateBase implements MathProcessing{
 
     public Multiplier(){};
 
@@ -12,5 +12,18 @@ public class Multiplier extends CalculateBase {
     public void calculate(){
         double newMultiVal = getLeftValue() * getRightValue();
         setResult(newMultiVal);
+    }
+
+    @Override
+    public String getKeyWord() {
+        return "multiply";
+    }
+
+    @Override
+    public double doCalculation(double leftVal, double rightVal) {
+        setLeftValue(leftVal);
+        setRightValue(rightVal);
+        calculate();
+        return getResult();
     }
 }

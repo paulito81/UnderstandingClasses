@@ -2,9 +2,26 @@ package no.phasfjo.models.passenger;
 
 public class Passenger {
 
-    int freeBags;
-    int checkedBags;
-    double perBagFee;
+    private String name;
+    private     int freeBags;
+    private int checkedBags;
+    private double perBagFee;
+
+    public Passenger() {
+
+    }
+
+    public Passenger(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getFreeBags() {
         return freeBags;

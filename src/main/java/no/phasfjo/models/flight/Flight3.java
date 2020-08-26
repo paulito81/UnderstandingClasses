@@ -1,8 +1,22 @@
 package no.phasfjo.models.flight;
 
-public class Flight3 {
+import no.phasfjo.models.passenger.Passenger3;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class Flight3 implements Comparable<Flight>, Iterable<Passenger3> {
     int seats = 150;
     int passengers;
+    private ArrayList<Passenger3> passengersList = new ArrayList<>();
+
+    public Flight3() {
+    }
+
+    public Flight3(int seats) {
+        this.seats = seats;
+    }
 
     public int getSeats() {
         return seats;
@@ -20,12 +34,25 @@ public class Flight3 {
         this.passengers = passengers;
     }
 
-    public void add1Passenger(){
+    //Methods
+    public void add1Passenger(String name){
         if(hasSeating()){
             passengers +=1;
         }
     }
+
     private boolean hasSeating(){
         return passengers < seats;
+    }
+
+    @Override
+    public int compareTo(@NotNull Flight o) {
+        return 0;
+    }
+
+    @NotNull
+    @Override
+    public Iterator<Passenger3> iterator() {
+        return passengersList.iterator();
     }
 }

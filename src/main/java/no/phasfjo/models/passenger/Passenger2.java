@@ -1,7 +1,6 @@
 package no.phasfjo.models.passenger;
 
-public class Passenger2 {
-
+public class Passenger2 extends Passenger{
     int freeBags;
     int checkedBags;
     double perBagFee;
@@ -17,6 +16,11 @@ public class Passenger2 {
     }
 
     public Passenger2(double perBagFee) {
+        super();
         this.perBagFee = perBagFee;
+    }
+
+    public Passenger2() {
+        super();
     }
 }
