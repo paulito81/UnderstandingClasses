@@ -16,13 +16,13 @@ import no.phasfjo.models.passenger.Passenger;
 import no.phasfjo.models.passenger.Passenger3;
 
 import static no.phasfjo.controller.FlightController.*;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        flyEvenMore();
+        apeKatt(2, 10, 10, "TrainOrNot");
+        apeKatt(6, 1, 2, "Yatzy");
     }
 
     private static void runAll() {
@@ -299,5 +299,46 @@ public class Main {
         f175.add1Passenger(passengersList);
         for(Passenger3 p : f175.getOrderedPassengers())
             System.out.println(p.getName());
+    }
+
+    private static void apeKatt( int max, double a, double b, String name ){
+
+        System.out.println("******"+name+"*****");
+
+        switch (name.toLowerCase()) {
+            case "trainornot" -> {
+                randomChecker(max, a, b);
+            }
+            case "yatzy" -> {
+                yatzyChecker(max, 1);
+            }
+            default -> System.err.println("Error no valid value");
+        }
+
+    }
+    private static void randomChecker(int max, double a, double b){
+        int local = 0;
+        for(int i = 0 ; i < max; i ++) {
+            double c = Math.random();
+            if (Math.round(a * b * c / 4) > 2) {
+                local++;
+            }
+        }
+        if(local > 5){
+            System.out.println("Go to gym (" + local + "/" + max +")");
+        }
+        else{
+            System.out.println("Stay home (" + local + "/" + max +")");
+        }
+    }
+
+    private static void yatzyChecker(int max, int min){
+
+        int range = max - min + 1;
+
+        for(int i = 1; i < max+1; i++){
+            int rand = (int)(Math.random()* range) + min;
+            System.out.println("DICE ["+i+"]\t "+rand);
+        }
     }
 }
